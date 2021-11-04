@@ -1,4 +1,4 @@
-package com.d4viddf.Factory;
+package com.samuel.Factory;
 
 import java.sql.Connection;
 

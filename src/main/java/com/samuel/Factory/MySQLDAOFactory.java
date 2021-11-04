@@ -1,9 +1,9 @@
-package com.d4viddf.Factory;
+package com.samuel.Factory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.d4viddf.Connections.BasicConnectionPool;
+import com.samuel.Connections.BasicConnectionPool;
 
 
 public class MySQLDAOFactory extends DAOFactory {

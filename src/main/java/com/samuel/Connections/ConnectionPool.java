@@ -1,4 +1,4 @@
-package com.d4viddf.Connections;
+package com.samuel.Connections;
 import java.sql.Connection;
 import java.sql.SQLException;
 

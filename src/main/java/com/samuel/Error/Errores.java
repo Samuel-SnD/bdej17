@@ -1,4 +1,4 @@
-package com.d4viddf.Error;
+package com.samuel.Error;
 import java.sql.SQLException;
 
 public class Errores {

@@ -1,4 +1,4 @@
-package com.d4viddf.Factory;
+package com.samuel.Dao;
 
 import java.sql.Connection;
 import java.util.List;
