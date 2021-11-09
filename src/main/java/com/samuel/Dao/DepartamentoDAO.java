@@ -1,19 +1,56 @@
 package com.samuel.Dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.samuel.Error.Errores;
 import com.samuel.vo.Departamento;
 
 public class DepartamentoDAO implements Dao <Departamento> {
 
-    @Override
-    public Departamento get (long id) {
-        return null;
+    public Departamento get (int id, Connection con) {
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Departamento where Id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Departamento dp = new Departamento();
+                dp.setId (rs.getInt(1));
+                dp.setNombre (rs.getString(2));
+                return dp;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Departamento();
     }
 
     @Override
     public List <Departamento> getAll (Connection conn) {
-        return null;
+        List <Departamento> lista = null;
+        try {
+            Statement s = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = s.executeQuery("SELECT * FROM Departamento;");
+            int totalRows = 0;
+            rs.last();
+            totalRows = rs.getRow();
+            rs.beforeFirst();
+            lista = new ArrayList <Departamento> (totalRows);
+            while(rs.next()) {
+                Departamento dp = new Departamento();
+                dp.setId (rs.getInt(1));
+                dp.setNombre (rs.getString(2));
+                lista.add(dp);
+            }
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
+        }
+        return lista;
     }
     
 }

@@ -4,17 +4,17 @@ import java.time.LocalDate;
 
 public class Profesor {
     
-    private int dni;
+    private String dni;
     private int departamento;
     private String nombre;
     private String apellidos;
     private LocalDate fecha_nacimiento;
     
-    public int getDni() {
+    public String getDni() {
         return this.dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
@@ -54,7 +54,7 @@ public class Profesor {
     public Profesor() {
     }
 
-    public Profesor(int dni, int departamento, String nombre, String apellidos, LocalDate fecha_nacimiento) {
+    public Profesor(String dni, int departamento, String nombre, String apellidos, LocalDate fecha_nacimiento) {
         this.dni = dni;
         this.departamento = departamento;
         this.nombre = nombre;
