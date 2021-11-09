@@ -17,16 +17,15 @@ public class View {
         System.out.println("8) Ver todas las asignaturas");
         System.out.println("9) Ver todos los departamentos");
         System.out.println("10) Ver todos los profesores");
-        System.out.println("11) Ver imparte");
-        System.out.println("12) Buscar alumno por dni");
-        System.out.println("13) Buscar asignatura por id");
-        System.out.println("14) Buscar departamento por id");
-        System.out.println("15) Buscar profesor por dni");
-        System.out.println("16) Buscar en imparte por curso");
-        System.out.println("17) Buscar alumnos de asignatura");
-        System.out.println("18) Buscar asignaturas de profesor");
-        System.out.println("19) Buscar profesores de departamento");
-        System.out.println("20) Salir");
+        System.out.println("11) Buscar alumno por dni");
+        System.out.println("12) Buscar asignatura por id");
+        System.out.println("13) Buscar departamento por id");
+        System.out.println("14) Buscar profesor por dni");
+        System.out.println("15) Buscar alumnos de asignatura");
+        System.out.println("16) Buscar asignaturas de profesor");
+        System.out.println("17) Buscar profesores de departamento");
+        System.out.println("18) Borrar tablas");
+        System.out.println("0) Salir");
         int opc = Integer.parseInt(teclado.nextLine());
         return opc;
     }

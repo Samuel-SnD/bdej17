@@ -53,4 +53,21 @@ public class AsignaturaDAO implements Dao <Asignatura> {
         return lista;
     }
     
+    public Asignatura getByProfesor (String dni, Connection con) {
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT id, a.nombre from asignatura a inner join imparte i on i.asignatura = a.id inner join profesor p on i.profesor = p.dni where p.dni = ? group by a.id;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ps.setString(1, dni);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Asignatura as = new Asignatura();
+                as.setId (rs.getInt(1));
+                as.setNombre (rs.getString(2));
+                return as;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Asignatura();
+    }
+
 }

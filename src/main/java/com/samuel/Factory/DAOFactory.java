@@ -2,10 +2,18 @@ package com.samuel.Factory;
 
 import java.sql.Connection;
 
+import com.samuel.Dao.AlumnoDAO;
+import com.samuel.Dao.AsignaturaDAO;
+import com.samuel.Dao.DepartamentoDAO;
+import com.samuel.Dao.ProfesorDAO;
+
 public abstract class DAOFactory {
     public static final int MYSQL = 1;
     public abstract Connection getConnection() throws Exception;
-
+    public abstract AlumnoDAO getAlumnoDAO();
+    public abstract DepartamentoDAO getDepartamentoDAO();
+    public abstract AsignaturaDAO getAsignaturaDAO();
+    public abstract ProfesorDAO getProfesorDAO();
     public static DAOFactory getDAOFactory(int whichFactory) {
 
         switch (whichFactory) {

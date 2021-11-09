@@ -59,5 +59,24 @@ public class ProfesorDAO implements Dao <Profesor> {
         }
         return lista;
     }
+
+    public Profesor getByDept (int dept, Connection con) {
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT dni, nombre, apellidos, fecha_nacimiento from profesor where departamento = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ps.setInt(1, dept);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Profesor pr = new Profesor();
+                pr.setDni (rs.getString(1));
+                pr.setNombre (rs.getString(2));
+                pr.setApellidos (rs.getString(3));
+                pr.setFecha_nacimiento (LocalDate.parse(rs.getString(4)));
+                return pr;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Profesor();
+    }
     
 }

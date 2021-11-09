@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.samuel.Connections.BasicConnectionPool;
+import com.samuel.Dao.AlumnoDAO;
+import com.samuel.Dao.AsignaturaDAO;
+import com.samuel.Dao.DepartamentoDAO;
+import com.samuel.Dao.ProfesorDAO;
 
 
 public class MySQLDAOFactory extends DAOFactory {
@@ -42,5 +46,24 @@ final static String password = "abc123.";
         bcp.shutdown();
     }
 
+    @Override
+    public AlumnoDAO getAlumnoDAO() {
+        return new AlumnoDAO();
+    }
+
+    @Override
+    public DepartamentoDAO getDepartamentoDAO() {
+        return new DepartamentoDAO();
+    }
+
+    @Override
+    public AsignaturaDAO getAsignaturaDAO() {
+        return new AsignaturaDAO();
+    }
+
+    @Override
+    public ProfesorDAO getProfesorDAO() {
+        return new ProfesorDAO();
+    }
     
 }

@@ -58,4 +58,22 @@ public class AlumnoDAO implements Dao <Alumno> {
         return lista;
     }
     
+    public Alumno getByAsignatura (int id, Connection con) {
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT dni, a.nombre, apellidos, fecha_nacimiento from alumno a inner join imparte i on a.dni = i.alumno inner join asignatura asg on i.asignatura = asg.id where asg.id = ? group by a.dni;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Alumno al = new Alumno();
+                al.setDni (rs.getString(1));
+                al.setNombre (rs.getString(2));
+                al.setApellidos (rs.getString(3));
+                al.setFecha_nacimiento (LocalDate.parse(rs.getString(5)));
+                return al;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Alumno();
+    }
 }
