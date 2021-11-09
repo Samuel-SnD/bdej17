@@ -2,7 +2,7 @@ package com.samuel.Dao;
 
 import java.sql.Connection;
 import java.util.List;
-import vo.Departamento;
+import com.samuel.vo.Departamento;
 
 public class DepartamentoDAO implements Dao <Departamento> {
 

@@ -2,7 +2,7 @@ package com.samuel.Dao;
 
 import java.sql.Connection;
 import java.util.List;
-import vo.Asignatura;
+import com.samuel.vo.Asignatura;
 
 public class AsignaturaDAO implements Dao <Asignatura> {
 

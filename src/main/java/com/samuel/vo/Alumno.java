@@ -1,4 +1,4 @@
-package vo;
+package com.samuel.vo;
 
 import java.time.LocalDate;
 
