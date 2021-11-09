@@ -7,9 +7,9 @@ import com.samuel.Connections.BasicConnectionPool;
 
 
 public class MySQLDAOFactory extends DAOFactory {
-    final static String url = "jdbc:mysql:///emp";
-final static String user = "root";
-final static String password = "1234";
+    final static String url = "jdbc:mysql:///Centro_Estudios";
+final static String user = "admin";
+final static String password = "abc123.";
     static BasicConnectionPool bcp;
 
     public MySQLDAOFactory() {
