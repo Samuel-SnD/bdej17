@@ -67,7 +67,6 @@ public class Controller {
     }
 
     public static void verAlumnos () {
-        alumnos.clear();
         try {
             alumnos = alDAO.getAll(mySQLFactory.getConnection());
             for (int i = 0; i < alumnos.size(); i++) {
@@ -79,7 +78,6 @@ public class Controller {
     }
 
     public static void verAsignaturas () {
-        asignaturas.clear();
         try {
             asignaturas = asgDAO.getAll(mySQLFactory.getConnection());
             for (int i = 0; i < asignaturas.size(); i++) {
@@ -91,7 +89,6 @@ public class Controller {
     }
 
     public static void verDepartamentos () {
-        departamentos.clear();
         try {
             departamentos = deptDAO.getAll(mySQLFactory.getConnection());
             for (int i = 0; i < departamentos.size(); i++) {
@@ -103,7 +100,6 @@ public class Controller {
     }
 
     public static void verProfesores () {
-        profesores.clear();
         try {
             profesores = prDAO.getAll(mySQLFactory.getConnection());
             for (int i = 0; i < profesores.size(); i++) {
@@ -256,7 +252,6 @@ public class Controller {
     public static void insertarAlumno () {
         try {
             alDAO.insertarAlumno(mySQLFactory.getConnection());
-            alumnos.clear();
             alumnos = alDAO.getAll(mySQLFactory.getConnection());
         } catch (Exception e) {
             e.printStackTrace();
@@ -266,7 +261,6 @@ public class Controller {
     public static void insertarAsignatura () {
         try {
             asgDAO.insertarAsignatura(mySQLFactory.getConnection());
-            asignaturas.clear();
             asignaturas = asgDAO.getAll(mySQLFactory.getConnection());
         } catch (Exception e) {
             e.printStackTrace();
@@ -276,7 +270,6 @@ public class Controller {
     public static void insertarDepartamento () {
         try {
             deptDAO.insertarDepartamento(mySQLFactory.getConnection());
-            departamentos.clear();
             departamentos = deptDAO.getAll(mySQLFactory.getConnection());
         } catch (Exception e) {
             e.printStackTrace();
@@ -286,7 +279,6 @@ public class Controller {
     public static void insertarProfesor () {
         try {
             prDAO.insertarProfesor(mySQLFactory.getConnection());
-            profesores.clear();
             profesores = prDAO.getAll(mySQLFactory.getConnection());
         } catch (Exception e) {
             e.printStackTrace();

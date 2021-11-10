@@ -28,7 +28,7 @@ public class AlumnoDAO implements Dao <Alumno> {
                 al.setDni (rs.getString(1));
                 al.setNombre (rs.getString(2));
                 al.setApellidos (rs.getString(3));
-                al.setFecha_nacimiento (LocalDate.parse(rs.getString(5)));
+                al.setFecha_nacimiento (LocalDate.parse(rs.getString(4)));
                 return al;
             }
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class AlumnoDAO implements Dao <Alumno> {
                 al.setDni (rs.getString(1));
                 al.setNombre (rs.getString(2));
                 al.setApellidos (rs.getString(3));
-                al.setFecha_nacimiento (LocalDate.parse(rs.getString(5)));
+                al.setFecha_nacimiento (LocalDate.parse(rs.getString(4)));
                 lista.add(al);
             }
         } catch (SQLException e) {
@@ -78,7 +78,7 @@ public class AlumnoDAO implements Dao <Alumno> {
                 al.setDni (rs.getString(1));
                 al.setNombre (rs.getString(2));
                 al.setApellidos (rs.getString(3));
-                al.setFecha_nacimiento (LocalDate.parse(rs.getString(5)));
+                al.setFecha_nacimiento (LocalDate.parse(rs.getString(4)));
                 lista.add(al);
             }
         } catch (Exception e) {
