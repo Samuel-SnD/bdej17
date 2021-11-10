@@ -7,12 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.samuel.Error.Errores;
 import com.samuel.vo.Departamento;
 
 public class DepartamentoDAO implements Dao <Departamento> {
 
+    static Scanner teclado = new Scanner (System.in);
+    
     public Departamento get (int id, Connection con) {
         try {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Departamento where Id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -51,6 +54,22 @@ public class DepartamentoDAO implements Dao <Departamento> {
             Errores.muestraErrorSQL(e);
         }
         return lista;
+    }
+
+    public void insertarDepartamento (Connection con) {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO departamento (nombre) VALUES (?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            System.out.println("¿Cuántos departamentos quieres insertar?");
+            int num = Integer.parseInt(teclado.nextLine());
+            for (int i = 0; i < num; i++) {
+                System.out.println("Inserte nombre del departamento: ");
+                ps.setString(1, teclado.nextLine());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

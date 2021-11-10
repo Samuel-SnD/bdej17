@@ -7,11 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.samuel.Error.Errores;
 import com.samuel.vo.Asignatura;
 
 public class AsignaturaDAO implements Dao <Asignatura> {
+
+    static Scanner teclado = new Scanner (System.in);
 
     public Asignatura get (int id, Connection con) {
         try {
@@ -53,21 +56,43 @@ public class AsignaturaDAO implements Dao <Asignatura> {
         return lista;
     }
     
-    public Asignatura getByProfesor (String dni, Connection con) {
+    public List <Asignatura> getByProfesor (String dni, Connection con) {
+        List <Asignatura> lista = null;
         try {
             PreparedStatement ps = con.prepareStatement("SELECT id, a.nombre from asignatura a inner join imparte i on i.asignatura = a.id inner join profesor p on i.profesor = p.dni where p.dni = ? group by a.id;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setString(1, dni);
             ResultSet rs = ps.executeQuery();
+            int totalRows = 0;
+            rs.last();
+            totalRows = rs.getRow();
+            rs.beforeFirst();
+            lista = new ArrayList <Asignatura> (totalRows);
             while(rs.next()) {
                 Asignatura as = new Asignatura();
                 as.setId (rs.getInt(1));
                 as.setNombre (rs.getString(2));
-                return as;
+                lista.add(as);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Asignatura();
+        return lista;
+    }
+
+    public void insertarAsignatura (Connection con) {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO asignatura (nombre) VALUES (?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            System.out.println("¿Cuántas asignaturas quieres insertar?");
+            int num = Integer.parseInt(teclado.nextLine());
+            for (int i = 0; i < num; i++) {
+                System.out.println("Inserte nombre de la asignatura: ");
+                ps.setString(1, teclado.nextLine());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
