@@ -114,4 +114,20 @@ public class AlumnoDAO implements Dao <Alumno> {
             e.printStackTrace();
         }
     }
+
+    public void insertarAlumno (Connection con, ArrayList <Alumno> als) {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO alumno (dni, nombre, apellidos, fecha_nacimiento) VALUES (?, ?, ?, ?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            for (int i = 0; i < als.size(); i++) {
+                ps.setString(1, teclado.nextLine());
+                ps.setString(2, teclado.nextLine());
+                ps.setString(3, teclado.nextLine());
+                ps.setString(4, teclado.nextLine());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
