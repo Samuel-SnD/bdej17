@@ -1,0 +1,46 @@
+12345678A, Carla, Gómez Pais, 1999-06-25
+12345678B, Alex, Sánchez González, 2001-07-08
+12345678C, Pedro, Romero Fuentes, 2002-11-15
+12345678D, Laura, Ferreiro Outeiro, 1999-02-22
+12345678E, Ariel, López Suárez, 2001-05-14
+12345678F, Xoán, Blanco Do Val, 2003-10-23
+/
+Matemáticas
+Informática
+Castelán
+Galego
+Inglés
+Historia
+Xeografía
+Filosofía
+/
+87654321Z, Fabiola, Reig, 1, 1969-04-20
+87654321Y, Sofía, Mir, 2, 1993-06-11
+87654321X, Emiliano, Ordoñez, 3, 1969-04-20
+87654321W, Nil, Rivera, 4, 1993-06-11
+87654321V, Samuel, Ferreiro, 5, 1969-04-20
+87654321U, Mary, Fernandez, 6, 1993-06-11
+87654321T, Marcelino, Valencia, 7, 1969-04-20
+87654321S, Isidora, Carballo, 8, 1993-06-11
+87654321R, Juana, Vargas, 8, 1969-04-20
+/
+Lengua Castellana
+Lingua Galega
+Matemáticas Académicas
+Matemáticas Aplicadas
+Filosofía
+Valores Éticos
+TIC
+Inglés
+Historia Contemporánea
+Historia do Arte
+Xeografía
+/
+87654321Z, 3, 12345678A, 2021
+87654321Z, 3, 12345678D, 2021
+87654321Y, 7, 12345678A, 2021
+87654321Y, 7, 12345678B, 2021
+87654321Y, 7, 12345678C, 2021
+87654321Y, 7, 12345678D, 2021
+87654321Y, 7, 12345678E, 2021
+87654321Y, 7, 12345678F, 2021

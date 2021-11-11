@@ -34,6 +34,7 @@ public class Controller {
             deptDAO = mySQLFactory.getDepartamentoDAO();
             asgDAO = mySQLFactory.getAsignaturaDAO();
             prDAO = mySQLFactory.getProfesorDAO();
+            mySQLFactory.volcadoFichero();
         } catch (Exception e) {
                 e.printStackTrace();
         }
