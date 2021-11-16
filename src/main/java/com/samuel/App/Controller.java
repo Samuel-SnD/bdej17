@@ -59,8 +59,9 @@ public class Controller {
                 case 15: verAlumnoAsignatura(); break;
                 case 16: verAsignaturaProfesor(); break;
                 case 17: verProfesorDepartamento(); break;
-                case 18: borrarTablas(); break;
+                case 18: eliminarTablas(); break;
                 case 19: rellenarTablas(); break;
+                case 20: borrarTablas(); break;
                 case 0: salir = true; break;
                 default: System.out.println("Opción no válida"); break;
             }
@@ -197,14 +198,27 @@ public class Controller {
         }
     }
 
+    public static void eliminarTablas() {
+        try {
+            Statement s = mySQLFactory.getConnection().createStatement();
+            s.execute("Drop table imparte;");
+            s.execute("Drop table profesor;");
+            s.execute("Drop table departamento;");
+            s.execute("Drop table asignatura;");
+            s.execute("Drop table alumno;");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void borrarTablas() {
         try {
             Statement s = mySQLFactory.getConnection().createStatement();
-            s.executeUpdate("Drop table imparte;");
-            s.executeUpdate("Drop table profesor;");
-            s.executeUpdate("Drop table departamento;");
-            s.executeUpdate("Drop table asignatura;");
-            s.executeUpdate("Drop table alumno;");
+            s.executeUpdate("Delete from imparte;");
+            s.executeUpdate("Delete from profesor;");
+            s.executeUpdate("Delete from departamento;");
+            s.executeUpdate("Delete from asignatura;");
+            s.executeUpdate("Delete from alumno;");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -213,16 +227,16 @@ public class Controller {
     public static void crearTablas () {
         try {
             Statement s = mySQLFactory.getConnection().createStatement();
-            s.executeUpdate("CREATE TABLE Alumno(Dni CHAR(9) NOT NULL PRIMARY KEY, Nombre VARCHAR(25) NOT NULL, Apellidos VARCHAR(25) NOT NULL, Fecha_nacimiento DATE NOT NULL);");
-            s.executeUpdate("CREATE TABLE Asignatura(Id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(25) NOT NULL);");
-            s.executeUpdate("CREATE TABLE Departamento(Id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(25) NOT NULL);");
-            s.executeUpdate("CREATE TABLE Profesor(Dni CHAR(9) NOT NULL PRIMARY KEY, Departamento INT UNSIGNED NOT NULL, Nombre VARCHAR(25) NOT NULL, Apellidos VARCHAR(25) NOT NULL, Fecha_nacimiento DATE NOT NULL);");
-            s.executeUpdate("CREATE TABLE Imparte(Profesor CHAR(9) NOT NULL, Asignatura INT UNSIGNED NOT NULL, Alumno CHAR(9) NOT NULL, Curso CHAR(7) NOT NULL);");
-            s.executeUpdate("ALTER TABLE Imparte ADD PRIMARY KEY (Profesor, Asignatura, Alumno, Curso);");
-            s.executeUpdate("ALTER TABLE Profesor ADD CONSTRAINT profesor_departamento_foreign FOREIGN KEY (Departamento) REFERENCES Departamento(Id);");
-            s.executeUpdate("ALTER TABLE Imparte ADD CONSTRAINT FOREIGN KEY imparte_profesor_foreign (Profesor) REFERENCES Profesor(Dni);");
-            s.executeUpdate("ALTER TABLE Imparte ADD CONSTRAINT FOREIGN KEY imparte_asignatura_foreign (Asignatura) REFERENCES Asignatura(Id);");
-            s.executeUpdate("ALTER TABLE Imparte ADD CONSTRAINT FOREIGN KEY imparte_alumno_foreign (Alumno) REFERENCES Alumno(Dni);");
+            s.execute("CREATE TABLE Alumno(Dni CHAR(9) NOT NULL PRIMARY KEY, Nombre VARCHAR(25) NOT NULL, Apellidos VARCHAR(25) NOT NULL, Fecha_nacimiento DATE NOT NULL);");
+            s.execute("CREATE TABLE Asignatura(Id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(25) NOT NULL);");
+            s.execute("CREATE TABLE Departamento(Id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(25) NOT NULL);");
+            s.execute("CREATE TABLE Profesor(Dni CHAR(9) NOT NULL PRIMARY KEY, Departamento INT UNSIGNED NOT NULL, Nombre VARCHAR(25) NOT NULL, Apellidos VARCHAR(25) NOT NULL, Fecha_nacimiento DATE NOT NULL);");
+            s.execute("CREATE TABLE Imparte(Profesor CHAR(9) NOT NULL, Asignatura INT UNSIGNED NOT NULL, Alumno CHAR(9) NOT NULL, Curso CHAR(7) NOT NULL);");
+            s.execute("ALTER TABLE Imparte ADD PRIMARY KEY (Profesor, Asignatura, Alumno, Curso);");
+            s.execute("ALTER TABLE Profesor ADD CONSTRAINT profesor_departamento_foreign FOREIGN KEY (Departamento) REFERENCES Departamento(Id);");
+            s.execute("ALTER TABLE Imparte ADD CONSTRAINT FOREIGN KEY imparte_profesor_foreign (Profesor) REFERENCES Profesor(Dni);");
+            s.execute("ALTER TABLE Imparte ADD CONSTRAINT FOREIGN KEY imparte_asignatura_foreign (Asignatura) REFERENCES Asignatura(Id);");
+            s.execute("ALTER TABLE Imparte ADD CONSTRAINT FOREIGN KEY imparte_alumno_foreign (Alumno) REFERENCES Alumno(Dni);");
         } catch (Exception e) {
             System.out.println("No puedes crear las tablas si ya están creadas, primero utiliza la función de borrar tablas");
         }
