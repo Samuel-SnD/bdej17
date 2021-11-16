@@ -25,6 +25,7 @@ public class View {
         System.out.println("16) Buscar asignaturas de profesor");
         System.out.println("17) Buscar profesores de departamento");
         System.out.println("18) Borrar tablas");
+        System.out.println("19) Rellenar tablas");
         System.out.println("0) Salir");
         int opc = Integer.parseInt(teclado.nextLine());
         return opc;

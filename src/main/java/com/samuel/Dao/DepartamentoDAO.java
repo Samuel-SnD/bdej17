@@ -71,5 +71,19 @@ public class DepartamentoDAO implements Dao <Departamento> {
             e.printStackTrace();
         }
     }
+
+    public void insertarDepartamento (Connection con, ArrayList <Departamento> depts) {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO departamento (id, nombre) VALUES (?, ?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            for (int i = 0; i < depts.size(); i++) {
+                ps.setInt(1, depts.get(i).getId());
+                ps.setString(2, depts.get(i).getNombre());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
 }

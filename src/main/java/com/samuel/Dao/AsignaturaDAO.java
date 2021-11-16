@@ -95,4 +95,18 @@ public class AsignaturaDAO implements Dao <Asignatura> {
         }
     }
 
+    public void insertarAsignatura (Connection con, ArrayList <Asignatura> asigs) {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO asignatura (id, nombre) VALUES (?, ?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            for (int i = 0; i < asigs.size(); i++) {
+                ps.setInt(1, asigs.get(i).getId());
+                ps.setString(2, asigs.get(i).getNombre());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

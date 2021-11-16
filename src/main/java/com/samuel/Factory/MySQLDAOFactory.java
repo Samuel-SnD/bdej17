@@ -13,9 +13,13 @@ import com.samuel.Connections.BasicConnectionPool;
 import com.samuel.Dao.AlumnoDAO;
 import com.samuel.Dao.AsignaturaDAO;
 import com.samuel.Dao.DepartamentoDAO;
+import com.samuel.Dao.ImparteDAO;
 import com.samuel.Dao.ProfesorDAO;
 import com.samuel.vo.Alumno;
 import com.samuel.vo.Asignatura;
+import com.samuel.vo.Departamento;
+import com.samuel.vo.Imparte;
+import com.samuel.vo.Profesor;
 
 
 public class MySQLDAOFactory extends DAOFactory {
@@ -75,15 +79,33 @@ public class MySQLDAOFactory extends DAOFactory {
     }
 
     @Override
+    public ImparteDAO getImparteDAO() {
+        return new ImparteDAO();
+    }
+
+    @Override
     public void volcadoFichero () {
         ArrayList <Alumno> als = new ArrayList <Alumno> ();
+        ArrayList <Departamento> depts = new ArrayList <Departamento> ();
+        ArrayList <Profesor> profs = new ArrayList <Profesor> ();
         ArrayList <Asignatura> asg = new ArrayList <Asignatura> ();
+        ArrayList <Imparte> impn = new ArrayList <Imparte> ();
+        AlumnoDAO alDAO = getAlumnoDAO();
+        DepartamentoDAO deptDAO = getDepartamentoDAO();
+        ProfesorDAO profDAO = getProfesorDAO();
+        AsignaturaDAO asgDAO = getAsignaturaDAO();
+        ImparteDAO impDAO = getImparteDAO();
 
         try {
             Path path = Path.of("bdej17\\Insert.txt");
             String contenido = Files.readString(path, StandardCharsets.UTF_8);
-            String [] lineas = contenido.split("\n/");
+            String [] lineas = contenido.split("\n/\n");
             String [] lineasAl = lineas[0].split("\n");
+            String [] lineasDept = lineas[1].split("\n");
+            String [] lineasProf = lineas[2].split("\n");
+            String [] lineasAsg = lineas[3].split("\n");
+            String [] lineasImp = lineas[4].split("\n");
+
             for (int i = 0; i < lineasAl.length; i++) {
                 Alumno al = new Alumno();
                 String [] alarr = lineasAl[i].split(", ");
@@ -93,8 +115,48 @@ public class MySQLDAOFactory extends DAOFactory {
                 al.setFecha_nacimiento(LocalDate.parse(alarr[3], df));
                 als.add(al);
             }
+            for (int i = 0; i < lineasDept.length; i++) {
+                Departamento dept = new Departamento();
+                String [] deptarr = lineasDept[i].split(", ");
+                dept.setId(Integer.parseInt(deptarr[0]));
+                dept.setNombre(deptarr[1]);
+                depts.add(dept);
+            }
+            for (int i = 0; i < lineasProf.length; i++) {
+                Profesor prof = new Profesor();
+                String [] profarr = lineasProf[i].split(", ");
+                prof.setDni(profarr[0]);
+                prof.setNombre(profarr[1]);
+                prof.setApellidos(profarr[2]);
+                prof.setDepartamento(Integer.parseInt(profarr[3]));
+                prof.setFecha_nacimiento(LocalDate.parse(profarr[4], df));
+                profs.add(prof);
+            }
+            for (int i = 0; i < lineasAsg.length; i++) {
+                Asignatura asig = new Asignatura();
+                String [] asgarr = lineasAsg[i].split(", ");
+                asig.setId(Integer.parseInt(asgarr[0]));
+                asig.setNombre(asgarr[1]);
+                asg.add(asig);
+            }
+            for (int i = 0; i < lineasImp.length; i++) {
+                Imparte imp = new Imparte();
+                String [] imparr = lineasImp[i].split(", ");
+                imp.setDniProf(imparr[0]);
+                imp.setAsig(Integer.parseInt(imparr[1]));
+                imp.setDniAl(imparr[2]);
+                imp.setCurso(Integer.parseInt(imparr[3]));
+                impn.add(imp);
+            }
+
+            alDAO.insertarAlumno(getConnection(), als);
+            deptDAO.insertarDepartamento(getConnection(), depts);
+            profDAO.insertarProfesor(getConnection(), profs);
+            asgDAO.insertarAsignatura(getConnection(), asg);
+            impDAO.insertarImparte(getConnection(), impn);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
 }

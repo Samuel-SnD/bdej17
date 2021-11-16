@@ -5,6 +5,7 @@ import java.sql.Connection;
 import com.samuel.Dao.AlumnoDAO;
 import com.samuel.Dao.AsignaturaDAO;
 import com.samuel.Dao.DepartamentoDAO;
+import com.samuel.Dao.ImparteDAO;
 import com.samuel.Dao.ProfesorDAO;
 
 public abstract class DAOFactory {
@@ -14,6 +15,7 @@ public abstract class DAOFactory {
     public abstract DepartamentoDAO getDepartamentoDAO();
     public abstract AsignaturaDAO getAsignaturaDAO();
     public abstract ProfesorDAO getProfesorDAO();
+    public abstract ImparteDAO getImparteDAO();
     public abstract void volcadoFichero();
     public static DAOFactory getDAOFactory(int whichFactory) {
 

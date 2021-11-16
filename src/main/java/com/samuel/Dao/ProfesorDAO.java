@@ -118,5 +118,22 @@ public class ProfesorDAO implements Dao <Profesor> {
             e.printStackTrace();
         }
     }
+
+    public void insertarProfesor (Connection con, ArrayList <Profesor> profes) {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO profesor (dni, nombre, apellidos, departamento, fecha_nacimiento) VALUES (?, ?, ?, ?, ?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            for (int i = 0; i < profes.size(); i++) {
+                ps.setString(1, profes.get(i).getDni());
+                ps.setString(2, profes.get(i).getNombre());
+                ps.setString(3, profes.get(i).getApellidos());
+                ps.setInt(4, profes.get(i).getDepartamento());
+                ps.setDate(5, Date.valueOf(profes.get(i).getFecha_nacimiento()));
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
 }

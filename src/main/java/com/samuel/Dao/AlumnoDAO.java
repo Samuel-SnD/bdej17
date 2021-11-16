@@ -119,10 +119,10 @@ public class AlumnoDAO implements Dao <Alumno> {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO alumno (dni, nombre, apellidos, fecha_nacimiento) VALUES (?, ?, ?, ?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             for (int i = 0; i < als.size(); i++) {
-                ps.setString(1, teclado.nextLine());
-                ps.setString(2, teclado.nextLine());
-                ps.setString(3, teclado.nextLine());
-                ps.setString(4, teclado.nextLine());
+                ps.setString(1, als.get(i).getDni());
+                ps.setString(2, als.get(i).getNombre());
+                ps.setString(3, als.get(i).getApellidos());
+                ps.setDate(4, Date.valueOf(als.get(i).getFecha_nacimiento()));
                 ps.addBatch();
             }
             ps.executeBatch();

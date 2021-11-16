@@ -34,7 +34,6 @@ public class Controller {
             deptDAO = mySQLFactory.getDepartamentoDAO();
             asgDAO = mySQLFactory.getAsignaturaDAO();
             prDAO = mySQLFactory.getProfesorDAO();
-            mySQLFactory.volcadoFichero();
         } catch (Exception e) {
                 e.printStackTrace();
         }
@@ -61,6 +60,7 @@ public class Controller {
                 case 16: verAsignaturaProfesor(); break;
                 case 17: verProfesorDepartamento(); break;
                 case 18: borrarTablas(); break;
+                case 19: rellenarTablas(); break;
                 case 0: salir = true; break;
                 default: System.out.println("Opción no válida"); break;
             }
@@ -200,11 +200,11 @@ public class Controller {
     public static void borrarTablas() {
         try {
             Statement s = mySQLFactory.getConnection().createStatement();
-            s.executeQuery("Drop table imparte;");
-            s.executeQuery("Drop table profesor;");
-            s.executeQuery("Drop table departamento;");
-            s.executeQuery("Drop table asignatura;");
-            s.executeQuery("Drop table alumno;");
+            s.executeUpdate("Drop table imparte;");
+            s.executeUpdate("Drop table profesor;");
+            s.executeUpdate("Drop table departamento;");
+            s.executeUpdate("Drop table asignatura;");
+            s.executeUpdate("Drop table alumno;");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -213,11 +213,11 @@ public class Controller {
     public static void crearTablas () {
         try {
             Statement s = mySQLFactory.getConnection().createStatement();
-            s.executeQuery("CREATE TABLE Alumno(Dni CHAR(9) NOT NULL PRIMARY KEY, Nombre VARCHAR(25) NOT NULL, Apellidos VARCHAR(25) NOT NULL, Fecha_nacimiento DATE NOT NULL);");
-            s.executeQuery("CREATE TABLE Asignatura(Id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(25) NOT NULL);");
-            s.executeQuery("CREATE TABLE Departamento(Id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(25) NOT NULL);");
-            s.executeQuery("CREATE TABLE Profesor(Dni CHAR(9) NOT NULL PRIMARY KEY, Departamento INT UNSIGNED NOT NULL, Nombre VARCHAR(25) NOT NULL, Apellidos VARCHAR(25) NOT NULL, Fecha_nacimiento DATE NOT NULL);");
-            s.executeQuery("CREATE TABLE Imparte(Profesor CHAR(9) NOT NULL, Asignatura INT UNSIGNED NOT NULL, Alumno CHAR(9) NOT NULL, Curso CHAR(7) NOT NULL);");
+            s.executeUpdate("CREATE TABLE Alumno(Dni CHAR(9) NOT NULL PRIMARY KEY, Nombre VARCHAR(25) NOT NULL, Apellidos VARCHAR(25) NOT NULL, Fecha_nacimiento DATE NOT NULL);");
+            s.executeUpdate("CREATE TABLE Asignatura(Id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(25) NOT NULL);");
+            s.executeUpdate("CREATE TABLE Departamento(Id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, Nombre VARCHAR(25) NOT NULL);");
+            s.executeUpdate("CREATE TABLE Profesor(Dni CHAR(9) NOT NULL PRIMARY KEY, Departamento INT UNSIGNED NOT NULL, Nombre VARCHAR(25) NOT NULL, Apellidos VARCHAR(25) NOT NULL, Fecha_nacimiento DATE NOT NULL);");
+            s.executeUpdate("CREATE TABLE Imparte(Profesor CHAR(9) NOT NULL, Asignatura INT UNSIGNED NOT NULL, Alumno CHAR(9) NOT NULL, Curso CHAR(7) NOT NULL);");
             s.executeUpdate("ALTER TABLE Imparte ADD PRIMARY KEY (Profesor, Asignatura, Alumno, Curso);");
             s.executeUpdate("ALTER TABLE Profesor ADD CONSTRAINT profesor_departamento_foreign FOREIGN KEY (Departamento) REFERENCES Departamento(Id);");
             s.executeUpdate("ALTER TABLE Imparte ADD CONSTRAINT FOREIGN KEY imparte_profesor_foreign (Profesor) REFERENCES Profesor(Dni);");
@@ -241,7 +241,7 @@ public class Controller {
                 System.out.println("Inserte dni del alumno: ");
                 ps.setString(3, teclado.nextLine());
                 System.out.println("Inserte curso: ");
-                ps.setString(4, teclado.nextLine());
+                ps.setInt(4, Integer.parseInt(teclado.nextLine()));
                 ps.addBatch();
             }
             ps.executeBatch();
@@ -287,6 +287,6 @@ public class Controller {
     }
 
     public static void rellenarTablas () {
-        
+        mySQLFactory.volcadoFichero();
     }
 }
