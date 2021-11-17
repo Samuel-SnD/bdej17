@@ -2,6 +2,7 @@ package com.samuel.App;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Scanner;
@@ -10,6 +11,7 @@ import com.samuel.Dao.AlumnoDAO;
 import com.samuel.Dao.AsignaturaDAO;
 import com.samuel.Dao.DepartamentoDAO;
 import com.samuel.Dao.ProfesorDAO;
+import com.samuel.Error.Errores;
 import com.samuel.Factory.DAOFactory;
 import com.samuel.vo.Alumno;
 import com.samuel.vo.Asignatura;
@@ -28,15 +30,11 @@ public class Controller {
     static AsignaturaDAO asgDAO;
     static ProfesorDAO prDAO;
     public static void main(String[] args) {
-        try {
-            mySQLFactory = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
-            alDAO = mySQLFactory.getAlumnoDAO();
-            deptDAO = mySQLFactory.getDepartamentoDAO();
-            asgDAO = mySQLFactory.getAsignaturaDAO();
-            prDAO = mySQLFactory.getProfesorDAO();
-        } catch (Exception e) {
-                e.printStackTrace();
-        }
+        mySQLFactory = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
+        alDAO = mySQLFactory.getAlumnoDAO();
+        deptDAO = mySQLFactory.getDepartamentoDAO();
+        asgDAO = mySQLFactory.getAsignaturaDAO();
+        prDAO = mySQLFactory.getProfesorDAO();
         boolean salir = false;
         while (!salir) {
             View v = new View();
@@ -74,8 +72,8 @@ public class Controller {
             for (int i = 0; i < alumnos.size(); i++) {
                 System.out.println(alumnos.get(i).toString());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -85,8 +83,8 @@ public class Controller {
             for (int i = 0; i < asignaturas.size(); i++) {
                 System.out.println(asignaturas.get(i).toString());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -96,8 +94,8 @@ public class Controller {
             for (int i = 0; i < departamentos.size(); i++) {
                 System.out.println(departamentos.get(i).toString());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -107,8 +105,8 @@ public class Controller {
             for (int i = 0; i < profesores.size(); i++) {
                 System.out.println(profesores.get(i).toString());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -118,8 +116,8 @@ public class Controller {
         try {
             Alumno al = alDAO.get(dni, mySQLFactory.getConnection());
             System.out.println(al.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -129,8 +127,8 @@ public class Controller {
         try {
             Asignatura asg = asgDAO.get(id, mySQLFactory.getConnection());
             System.out.println(asg.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -140,8 +138,8 @@ public class Controller {
         try {
             Departamento dept = deptDAO.get(id, mySQLFactory.getConnection());
             System.out.println(dept.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -151,13 +149,12 @@ public class Controller {
         try {
             Profesor pr = prDAO.get(dni, mySQLFactory.getConnection());
             System.out.println(pr.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
     public static void verAlumnoAsignatura () {
-        alumnos.clear();
         System.out.println("Introduce el id de la asignatura: ");
         int id = Integer.parseInt(teclado.nextLine());
         try {
@@ -165,13 +162,12 @@ public class Controller {
             for (int i = 0; i < alumnos.size(); i++) {
                 System.out.println(alumnos.get(i).toString());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
     public static void verAsignaturaProfesor () {
-        asignaturas.clear();
         System.out.println("Introduce el dni del profesor: ");
         String dni = teclado.nextLine();
         try {
@@ -179,13 +175,12 @@ public class Controller {
             for (int i = 0; i < asignaturas.size(); i++) {
                 System.out.println(asignaturas.get(i).toString());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
     public static void verProfesorDepartamento () {
-        profesores.clear();
         System.out.println("Introduce el id del departamento: ");
         int id = Integer.parseInt(teclado.nextLine());
         try {
@@ -193,8 +188,8 @@ public class Controller {
             for (int i = 0; i < profesores.size(); i++) {
                 System.out.println(profesores.get(i).toString());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -206,8 +201,8 @@ public class Controller {
             s.execute("Drop table departamento;");
             s.execute("Drop table asignatura;");
             s.execute("Drop table alumno;");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -219,8 +214,8 @@ public class Controller {
             s.executeUpdate("Delete from departamento;");
             s.executeUpdate("Delete from asignatura;");
             s.executeUpdate("Delete from alumno;");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -237,7 +232,7 @@ public class Controller {
             s.execute("ALTER TABLE Imparte ADD CONSTRAINT FOREIGN KEY imparte_profesor_foreign (Profesor) REFERENCES Profesor(Dni);");
             s.execute("ALTER TABLE Imparte ADD CONSTRAINT FOREIGN KEY imparte_asignatura_foreign (Asignatura) REFERENCES Asignatura(Id);");
             s.execute("ALTER TABLE Imparte ADD CONSTRAINT FOREIGN KEY imparte_alumno_foreign (Alumno) REFERENCES Alumno(Dni);");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("No puedes crear las tablas si ya están creadas, primero utiliza la función de borrar tablas");
         }
     }
@@ -259,8 +254,8 @@ public class Controller {
                 ps.addBatch();
             }
             ps.executeBatch();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -268,8 +263,8 @@ public class Controller {
         try {
             alDAO.insertarAlumno(mySQLFactory.getConnection());
             alumnos = alDAO.getAll(mySQLFactory.getConnection());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -277,8 +272,8 @@ public class Controller {
         try {
             asgDAO.insertarAsignatura(mySQLFactory.getConnection());
             asignaturas = asgDAO.getAll(mySQLFactory.getConnection());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -286,8 +281,8 @@ public class Controller {
         try {
             deptDAO.insertarDepartamento(mySQLFactory.getConnection());
             departamentos = deptDAO.getAll(mySQLFactory.getConnection());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -295,8 +290,8 @@ public class Controller {
         try {
             prDAO.insertarProfesor(mySQLFactory.getConnection());
             profesores = prDAO.getAll(mySQLFactory.getConnection());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 

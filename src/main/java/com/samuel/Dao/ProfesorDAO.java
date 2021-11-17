@@ -32,8 +32,8 @@ public class ProfesorDAO implements Dao <Profesor> {
                 pr.setFecha_nacimiento (LocalDate.parse(rs.getString(5)));
                 return pr;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
         return new Profesor();
     }
@@ -67,7 +67,7 @@ public class ProfesorDAO implements Dao <Profesor> {
     public List <Profesor> getByDept (int dept, Connection con) {
         List <Profesor> lista = null;
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT dni, nombre, apellidos, fecha_nacimiento from profesor where departamento = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            PreparedStatement ps = con.prepareStatement("SELECT * from view_Prof_Dept where departamento = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, dept);
             ResultSet rs = ps.executeQuery();
             int totalRows = 0;
@@ -78,13 +78,15 @@ public class ProfesorDAO implements Dao <Profesor> {
             while(rs.next()) {
                 Profesor pr = new Profesor();
                 pr.setDni (rs.getString(1));
-                pr.setNombre (rs.getString(2));
-                pr.setApellidos (rs.getString(3));
-                pr.setFecha_nacimiento (LocalDate.parse(rs.getString(4)));
+                pr.setDepartamento(rs.getInt(2));
+                pr.setNombre (rs.getString(3));
+                pr.setApellidos (rs.getString(4));
+                pr.setFecha_nacimiento (LocalDate.parse(rs.getString(5)));
+                pr.setNom_dept(rs.getString(6));
                 lista.add(pr);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
         return lista;
     }
@@ -114,8 +116,8 @@ public class ProfesorDAO implements Dao <Profesor> {
                 ps.addBatch();
             }
             ps.executeBatch();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -131,8 +133,8 @@ public class ProfesorDAO implements Dao <Profesor> {
                 ps.addBatch();
             }
             ps.executeBatch();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
     

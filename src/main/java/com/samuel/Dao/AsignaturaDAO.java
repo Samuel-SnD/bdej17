@@ -27,8 +27,8 @@ public class AsignaturaDAO implements Dao <Asignatura> {
                 as.setNombre (rs.getString(2));
                 return as;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
         return new Asignatura();
     }
@@ -73,8 +73,8 @@ public class AsignaturaDAO implements Dao <Asignatura> {
                 as.setNombre (rs.getString(2));
                 lista.add(as);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
         return lista;
     }
@@ -90,8 +90,8 @@ public class AsignaturaDAO implements Dao <Asignatura> {
                 ps.addBatch();
             }
             ps.executeBatch();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -104,8 +104,8 @@ public class AsignaturaDAO implements Dao <Asignatura> {
                 ps.addBatch();
             }
             ps.executeBatch();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 

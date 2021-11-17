@@ -49,8 +49,8 @@ public class ImparteDAO implements Dao <Imparte>{
                 ps.addBatch();
             }
             ps.executeBatch();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
     

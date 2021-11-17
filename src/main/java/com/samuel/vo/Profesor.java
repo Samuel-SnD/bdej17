@@ -9,6 +9,7 @@ public class Profesor {
     private String nombre;
     private String apellidos;
     private LocalDate fecha_nacimiento;
+    private String nom_dept;
     
     public String getDni() {
         return this.dni;
@@ -51,6 +52,16 @@ public class Profesor {
     }
 
 
+    public String getNom_dept() {
+        return this.nom_dept;
+    }
+
+    public void setNom_dept(String nom_dept) {
+        this.nom_dept = nom_dept;
+    }
+
+
+
     public Profesor() {
     }
 
@@ -62,6 +73,16 @@ public class Profesor {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
+    public Profesor(String dni, int departamento, String nombre, String apellidos, LocalDate fecha_nacimiento, String nom_dep) {
+        this.dni = dni;
+        this.departamento = departamento;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.nom_dept = nom_dep;
+    }
+
+
     @Override
     public String toString() {
         return "{" +
@@ -70,7 +91,9 @@ public class Profesor {
             ", nombre='" + getNombre() + "'" +
             ", apellidos='" + getApellidos() + "'" +
             ", fecha_nacimiento='" + getFecha_nacimiento() + "'" +
+            ", nom_dept='" + getNom_dept() + "'" +
             "}";
     }
+    
 
 }

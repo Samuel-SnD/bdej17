@@ -1,5 +1,6 @@
 package com.samuel.Factory;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,6 +16,7 @@ import com.samuel.Dao.AsignaturaDAO;
 import com.samuel.Dao.DepartamentoDAO;
 import com.samuel.Dao.ImparteDAO;
 import com.samuel.Dao.ProfesorDAO;
+import com.samuel.Error.Errores;
 import com.samuel.vo.Alumno;
 import com.samuel.vo.Asignatura;
 import com.samuel.vo.Departamento;
@@ -33,7 +35,7 @@ public class MySQLDAOFactory extends DAOFactory {
         try {
             bcp = BasicConnectionPool.create(url, user, password);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -52,7 +54,6 @@ public class MySQLDAOFactory extends DAOFactory {
         return bcp.getSize();
     }
 
-    // add getUser, getURL....
     @Override
     public void shutdown() throws SQLException {
         bcp.shutdown();
@@ -154,8 +155,10 @@ public class MySQLDAOFactory extends DAOFactory {
             profDAO.insertarProfesor(getConnection(), profs);
             asgDAO.insertarAsignatura(getConnection(), asg);
             impDAO.insertarImparte(getConnection(), impn);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            Errores.muestraErrorIO(e);
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
         
     }

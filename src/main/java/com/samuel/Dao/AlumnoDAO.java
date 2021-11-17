@@ -31,8 +31,8 @@ public class AlumnoDAO implements Dao <Alumno> {
                 al.setFecha_nacimiento (LocalDate.parse(rs.getString(4)));
                 return al;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
         return new Alumno();
     }
@@ -81,8 +81,8 @@ public class AlumnoDAO implements Dao <Alumno> {
                 al.setFecha_nacimiento (LocalDate.parse(rs.getString(4)));
                 lista.add(al);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
         return lista;
     }
@@ -110,8 +110,8 @@ public class AlumnoDAO implements Dao <Alumno> {
                 ps.addBatch();
             }
             ps.executeBatch();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -126,8 +126,8 @@ public class AlumnoDAO implements Dao <Alumno> {
                 ps.addBatch();
             }
             ps.executeBatch();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 }

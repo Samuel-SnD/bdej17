@@ -27,8 +27,8 @@ public class DepartamentoDAO implements Dao <Departamento> {
                 dp.setNombre (rs.getString(2));
                 return dp;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
         return new Departamento();
     }
@@ -67,8 +67,8 @@ public class DepartamentoDAO implements Dao <Departamento> {
                 ps.addBatch();
             }
             ps.executeBatch();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
 
@@ -81,8 +81,8 @@ public class DepartamentoDAO implements Dao <Departamento> {
                 ps.addBatch();
             }
             ps.executeBatch();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            Errores.muestraErrorSQL(e);
         }
     }
     
