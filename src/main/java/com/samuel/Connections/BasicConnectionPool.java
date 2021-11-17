@@ -7,12 +7,14 @@ import java.util.*;
 public class BasicConnectionPool implements ConnectionPool {
     private static final int MAX_POOL_SIZE = 10;
     private static final int MAX_TIMEOUT = 1000;
+    private static int INITIAL_POOL_SIZE = 10;
+
     private String url;
     private String user;
     private String password;
+
     private List<Connection> connectionPool;
     private List<Connection> usedConnections = new ArrayList<>();
-    private static int INITIAL_POOL_SIZE = 10;
 
     private BasicConnectionPool(String url, String user, String password, List<Connection> pool) {
         this.url = url;
@@ -23,9 +25,11 @@ public class BasicConnectionPool implements ConnectionPool {
 
     public static BasicConnectionPool create(String url, String user, String password) throws SQLException {
         List<Connection> pool = new ArrayList<>(INITIAL_POOL_SIZE);
+        
         for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
             pool.add(createConnection(url, user, password));
         }
+
         return new BasicConnectionPool(url, user, password, pool);
     }
 
@@ -38,10 +42,12 @@ public class BasicConnectionPool implements ConnectionPool {
                 throw new RuntimeException("Maximum pool size reached, no available connections!");
             }
         }
+
         Connection connection = connectionPool.remove(connectionPool.size() - 1);
         if (!connection.isValid(MAX_TIMEOUT)) {
             connection = createConnection(url, user, password);
         }
+
         usedConnections.add(connection);
         return connection;
     }

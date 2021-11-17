@@ -91,6 +91,7 @@ public class MySQLDAOFactory extends DAOFactory {
         ArrayList <Profesor> profs = new ArrayList <Profesor> ();
         ArrayList <Asignatura> asg = new ArrayList <Asignatura> ();
         ArrayList <Imparte> impn = new ArrayList <Imparte> ();
+
         AlumnoDAO alDAO = getAlumnoDAO();
         DepartamentoDAO deptDAO = getDepartamentoDAO();
         ProfesorDAO profDAO = getProfesorDAO();
@@ -160,6 +161,5 @@ public class MySQLDAOFactory extends DAOFactory {
         } catch (SQLException e) {
             Errores.muestraErrorSQL(e);
         }
-        
     }
 }

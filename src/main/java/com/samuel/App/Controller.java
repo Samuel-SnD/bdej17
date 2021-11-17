@@ -36,6 +36,7 @@ public class Controller {
         asgDAO = mySQLFactory.getAsignaturaDAO();
         prDAO = mySQLFactory.getProfesorDAO();
         boolean salir = false;
+
         while (!salir) {
             View v = new View();
             int opcion = v.mostrarMenu();
@@ -113,6 +114,7 @@ public class Controller {
     public static void verAlumno() {
         System.out.println("Introduce el dni del alumno: ");
         String dni = teclado.nextLine();
+
         try {
             Alumno al = alDAO.get(dni, mySQLFactory.getConnection());
             System.out.println(al.toString());
@@ -124,6 +126,7 @@ public class Controller {
     public static void verAsignatura() {
         System.out.println("Introduce el id de la asignatura: ");
         int id = Integer.parseInt(teclado.nextLine());
+
         try {
             Asignatura asg = asgDAO.get(id, mySQLFactory.getConnection());
             System.out.println(asg.toString());
@@ -135,6 +138,7 @@ public class Controller {
     public static void verDepartamento() {
         System.out.println("Introduce el id del departamento: ");
         int id = Integer.parseInt(teclado.nextLine());
+
         try {
             Departamento dept = deptDAO.get(id, mySQLFactory.getConnection());
             System.out.println(dept.toString());
@@ -146,6 +150,7 @@ public class Controller {
     public static void verProfesor() {
         System.out.println("Introduce el dni del profesor: ");
         String dni = teclado.nextLine();
+
         try {
             Profesor pr = prDAO.get(dni, mySQLFactory.getConnection());
             System.out.println(pr.toString());
@@ -157,6 +162,7 @@ public class Controller {
     public static void verAlumnoAsignatura () {
         System.out.println("Introduce el id de la asignatura: ");
         int id = Integer.parseInt(teclado.nextLine());
+
         try {
             alumnos = alDAO.getByAsignatura(id, mySQLFactory.getConnection());
             for (int i = 0; i < alumnos.size(); i++) {
@@ -170,6 +176,7 @@ public class Controller {
     public static void verAsignaturaProfesor () {
         System.out.println("Introduce el dni del profesor: ");
         String dni = teclado.nextLine();
+
         try {
             asignaturas = asgDAO.getByProfesor(dni, mySQLFactory.getConnection());
             for (int i = 0; i < asignaturas.size(); i++) {
@@ -183,6 +190,7 @@ public class Controller {
     public static void verProfesorDepartamento () {
         System.out.println("Introduce el id del departamento: ");
         int id = Integer.parseInt(teclado.nextLine());
+
         try {
             profesores = prDAO.getByDept(id, mySQLFactory.getConnection());
             for (int i = 0; i < profesores.size(); i++) {
@@ -240,8 +248,10 @@ public class Controller {
     public static void insertarImparte () {
         try {
             PreparedStatement ps = mySQLFactory.getConnection().prepareStatement("INSERT INTO asignatura (profesor, asignatura, alumno, curso) VALUES (?, ?, ?, ?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            
             System.out.println("¿Cuántas filas quieres insertar?");
             int num = Integer.parseInt(teclado.nextLine());
+
             for (int i = 0; i < num; i++) {
                 System.out.println("Inserte dni del profesor: ");
                 ps.setString(1, teclado.nextLine());

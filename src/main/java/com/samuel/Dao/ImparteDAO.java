@@ -19,11 +19,13 @@ public class ImparteDAO implements Dao <Imparte>{
         try {
             Statement s = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = s.executeQuery("SELECT * FROM Imparte;");
+
             int totalRows = 0;
             rs.last();
             totalRows = rs.getRow();
             rs.beforeFirst();
             lista = new ArrayList <Imparte> (totalRows);
+            
             while(rs.next()) {
                 Imparte imp = new Imparte();
                 imp.setDniProf(rs.getString(0));
@@ -41,6 +43,7 @@ public class ImparteDAO implements Dao <Imparte>{
     public void insertarImparte (Connection con, ArrayList <Imparte> imps) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO imparte (Profesor, Asignatura, Alumno, Curso) VALUES (?, ?, ?, ?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            
             for (int i = 0; i < imps.size(); i++) {
                 ps.setString(1, imps.get(i).getDniProf());
                 ps.setInt(2, imps.get(i).getAsig());

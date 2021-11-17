@@ -23,6 +23,7 @@ public class ProfesorDAO implements Dao <Profesor> {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Profesor where Dni = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setString(1, dni);
             ResultSet rs = ps.executeQuery();
+
             while(rs.next()) {
                 Profesor pr = new Profesor();
                 pr.setDni (rs.getString(1));
@@ -44,11 +45,13 @@ public class ProfesorDAO implements Dao <Profesor> {
         try {
             Statement s = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = s.executeQuery("SELECT * FROM Profesor;");
+
             int totalRows = 0;
             rs.last();
             totalRows = rs.getRow();
             rs.beforeFirst();
             lista = new ArrayList <Profesor> (totalRows);
+
             while(rs.next()) {
                 Profesor pr = new Profesor();
                 pr.setDni (rs.getString(1));
@@ -70,11 +73,13 @@ public class ProfesorDAO implements Dao <Profesor> {
             PreparedStatement ps = con.prepareStatement("SELECT * from view_Prof_Dept where departamento = ?;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, dept);
             ResultSet rs = ps.executeQuery();
+
             int totalRows = 0;
             rs.last();
             totalRows = rs.getRow();
             rs.beforeFirst();
             lista = new ArrayList <Profesor> (totalRows);
+
             while(rs.next()) {
                 Profesor pr = new Profesor();
                 pr.setDni (rs.getString(1));
@@ -94,8 +99,10 @@ public class ProfesorDAO implements Dao <Profesor> {
     public void insertarProfesor (Connection con) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO alumno (dni, nombre, apellidos, departamento, fecha_nacimiento) VALUES (?, ?, ?, ?, ?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            
             System.out.println("¿Cuántos profesores quieres insertar?");
             int num = Integer.parseInt(teclado.nextLine());
+
             for (int i = 0; i < num; i++) {
                 System.out.println("Inserte dni profesor: ");
                 ps.setString(1, teclado.nextLine());
@@ -124,6 +131,7 @@ public class ProfesorDAO implements Dao <Profesor> {
     public void insertarProfesor (Connection con, ArrayList <Profesor> profes) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO profesor (dni, nombre, apellidos, departamento, fecha_nacimiento) VALUES (?, ?, ?, ?, ?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            
             for (int i = 0; i < profes.size(); i++) {
                 ps.setString(1, profes.get(i).getDni());
                 ps.setString(2, profes.get(i).getNombre());

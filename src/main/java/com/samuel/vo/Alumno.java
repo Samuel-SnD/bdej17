@@ -63,6 +63,4 @@ public class Alumno {
             ", fecha_nacimiento='" + getFecha_nacimiento() + "'" +
             "}";
     }
-
-
 }

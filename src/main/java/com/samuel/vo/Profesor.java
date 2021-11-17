@@ -94,6 +94,4 @@ public class Profesor {
             ", nom_dept='" + getNom_dept() + "'" +
             "}";
     }
-    
-
 }

@@ -28,6 +28,7 @@ public class View {
         System.out.println("19) Rellenar tablas");
         System.out.println("20) Borrar datos tablas");
         System.out.println("0) Salir");
+        
         int opc = Integer.parseInt(teclado.nextLine());
         return opc;
     }

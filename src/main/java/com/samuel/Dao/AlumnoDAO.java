@@ -23,6 +23,7 @@ public class AlumnoDAO implements Dao <Alumno> {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Alumno where Dni = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setString(1, Dni);
             ResultSet rs = ps.executeQuery();
+
             while(rs.next()) {
                 Alumno al = new Alumno();
                 al.setDni (rs.getString(1));
@@ -43,11 +44,13 @@ public class AlumnoDAO implements Dao <Alumno> {
         try {
             Statement s = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = s.executeQuery("SELECT * FROM Alumno;");
+
             int totalRows = 0;
             rs.last();
             totalRows = rs.getRow();
             rs.beforeFirst();
             lista = new ArrayList <Alumno> (totalRows);
+
             while(rs.next()) {
                 Alumno al = new Alumno();
                 al.setDni (rs.getString(1));
@@ -68,11 +71,13 @@ public class AlumnoDAO implements Dao <Alumno> {
             PreparedStatement ps = con.prepareStatement("SELECT dni, a.nombre, apellidos, fecha_nacimiento from alumno a inner join imparte i on a.dni = i.alumno inner join asignatura asg on i.asignatura = asg.id where asg.id = ? group by a.dni;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
+
             int totalRows = 0;
             rs.last();
             totalRows = rs.getRow();
             rs.beforeFirst();
             lista = new ArrayList <Alumno> (totalRows);
+
             while(rs.next()) {
                 Alumno al = new Alumno();
                 al.setDni (rs.getString(1));
@@ -90,8 +95,10 @@ public class AlumnoDAO implements Dao <Alumno> {
     public void insertarAlumno (Connection con) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO alumno (dni, nombre, apellidos, fecha_nacimiento) VALUES (?, ?, ?, ?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            
             System.out.println("¿Cuántos alumnos quieres insertar?");
             int num = Integer.parseInt(teclado.nextLine());
+
             for (int i = 0; i < num; i++) {
                 System.out.println("Inserte dni alumno: ");
                 ps.setString(1, teclado.nextLine());
@@ -118,6 +125,7 @@ public class AlumnoDAO implements Dao <Alumno> {
     public void insertarAlumno (Connection con, ArrayList <Alumno> als) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO alumno (dni, nombre, apellidos, fecha_nacimiento) VALUES (?, ?, ?, ?);" , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            
             for (int i = 0; i < als.size(); i++) {
                 ps.setString(1, als.get(i).getDni());
                 ps.setString(2, als.get(i).getNombre());

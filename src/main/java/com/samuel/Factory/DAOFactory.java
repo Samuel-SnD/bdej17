@@ -11,6 +11,7 @@ import com.samuel.Dao.ProfesorDAO;
 
 public abstract class DAOFactory {
     public static final int MYSQL = 1;
+
     public abstract Connection getConnection() throws SQLException;
     public abstract AlumnoDAO getAlumnoDAO();
     public abstract DepartamentoDAO getDepartamentoDAO();
@@ -18,8 +19,8 @@ public abstract class DAOFactory {
     public abstract ProfesorDAO getProfesorDAO();
     public abstract ImparteDAO getImparteDAO();
     public abstract void volcadoFichero();
-    public static DAOFactory getDAOFactory(int whichFactory) {
 
+    public static DAOFactory getDAOFactory(int whichFactory) {
         switch (whichFactory) {
         case MYSQL:
             return new MySQLDAOFactory();
