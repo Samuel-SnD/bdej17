@@ -91,7 +91,6 @@ public class Profesor {
             ", nombre='" + getNombre() + "'" +
             ", apellidos='" + getApellidos() + "'" +
             ", fecha_nacimiento='" + getFecha_nacimiento() + "'" +
-            ", nom_dept='" + getNom_dept() + "'" +
             "}";
     }
 }

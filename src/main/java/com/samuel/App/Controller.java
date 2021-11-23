@@ -194,7 +194,12 @@ public class Controller {
         try {
             profesores = prDAO.getByDept(id, mySQLFactory.getConnection());
             for (int i = 0; i < profesores.size(); i++) {
-                System.out.println(profesores.get(i).toString());
+                System.out.print(profesores.get(i).getDni() + " - ");
+                System.out.print(profesores.get(i).getDepartamento() + " - ");
+                System.out.print(profesores.get(i).getNombre() + " - ");
+                System.out.print(profesores.get(i).getApellidos() + " - ");
+                System.out.print(profesores.get(i).getFecha_nacimiento() + " - ");
+                System.out.println(profesores.get(i).getNom_dept() + "\n");
             }
         } catch (SQLException e) {
             Errores.muestraErrorSQL(e);
